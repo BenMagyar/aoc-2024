@@ -17,7 +17,7 @@ def answer(input):
 EOF
 session=`cat .session`
 day=$(echo $1 | sed 's/^0*//')
-curl -s "https://adventofcode.com/2022/day/$day/input" \
+curl -s "https://adventofcode.com/2024/day/$day/input" \
     -H "Cookie: session=$session" \
     -o "inputs/$1.txt"
 fswatch -or "src/d$1.py" | xargs -n1 -I{} ./scripts/test $1
