@@ -30,20 +30,8 @@ def part_one(input):
 def part_two(input):
     rules, updates = input
     invalid = [update for update in updates if not is_valid(rules, update)]
-
-    memory = defaultdict()
-    def compare(a, b):
-        after = list(rules[a].keys())
-        checked = []
-        while len(after) > 0:
-            current = after.pop()
-            if current == b:
-                return -1
-            checked.append(current)
-            after.extend(key for key in rules[current].keys() if key not in checked)
-        return 1
     
-    sort_key = cmp_to_key(compare)
+    sort_key = cmp_to_key(lambda a, b: -1 if b in rules[a].keys() else 1)
     invalid = [sorted(update, key=sort_key) for update in invalid]
     
     return sum(int(update[len(update) // 2]) for update in invalid)
